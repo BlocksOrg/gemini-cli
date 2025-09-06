@@ -8,8 +8,8 @@ import type {
   Config,
   ConversationRecord,
   MessageRecord,
-} from '@google/gemini-cli-core';
-import { partListUnionToString } from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
+import { partListUnionToString } from '@blocksuser/gemini-cli-core';
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 

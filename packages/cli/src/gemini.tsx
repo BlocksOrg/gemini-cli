@@ -30,14 +30,14 @@ import {
   runExitCleanup,
 } from './utils/cleanup.js';
 import { getCliVersion } from './utils/version.js';
-import type { Config } from '@google/gemini-cli-core';
+import type { Config } from '@blocksuser/gemini-cli-core';
 import {
   sessionId,
   logUserPrompt,
   AuthType,
   getOauthClient,
   uiTelemetryService,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import {
   initializeApp,
   type InitializationResult,

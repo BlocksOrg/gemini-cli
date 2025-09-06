@@ -6,7 +6,7 @@
 
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import type { Config } from '@google/gemini-cli-core';
+import type { Config } from '@blocksuser/gemini-cli-core';
 import type { Settings, SessionRetentionSettings } from '../config/settings.js';
 import { getSessionFiles, type SessionInfo } from './sessionUtils.js';
 

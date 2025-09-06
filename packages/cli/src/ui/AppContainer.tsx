@@ -37,7 +37,7 @@ import {
   logFlashFallback,
   FlashFallbackEvent,
   clearCachedCredentialFile,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import { validateAuthMethod } from '../config/auth.js';
 import { loadHierarchicalGeminiMemory } from '../config/config.js';
 import process from 'node:process';

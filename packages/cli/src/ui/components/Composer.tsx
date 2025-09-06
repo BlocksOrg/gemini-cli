@@ -21,7 +21,7 @@ import { useUIActions } from '../contexts/UIActionsContext.js';
 import { useVimMode } from '../contexts/VimModeContext.js';
 import { useConfig } from '../contexts/ConfigContext.js';
 import { useSettings } from '../contexts/SettingsContext.js';
-import { ApprovalMode } from '@google/gemini-cli-core';
+import { ApprovalMode } from '@blocksuser/gemini-cli-core';
 import { StreamingState } from '../types.js';
 
 const MAX_DISPLAYED_QUEUED_MESSAGES = 3;
