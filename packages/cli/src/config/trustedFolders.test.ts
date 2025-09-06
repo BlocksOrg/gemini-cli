@@ -256,9 +256,9 @@ describe('isWorkspaceTrusted', () => {
   });
 });
 
-import { getIdeTrust } from '@google/gemini-cli-core';
+import { getIdeTrust } from '@blocksuser/gemini-cli-core';
 
-vi.mock('@google/gemini-cli-core', async (importOriginal) => {
+vi.mock('@blocksuser/gemini-cli-core', async (importOriginal) => {
   const actual = await importOriginal<Record<string, unknown>>();
   return {
     ...actual,

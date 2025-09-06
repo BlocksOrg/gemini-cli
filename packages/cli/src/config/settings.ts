@@ -14,7 +14,7 @@ import {
   GEMINI_CONFIG_DIR as GEMINI_DIR,
   getErrorMessage,
   Storage,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import stripJsonComments from 'strip-json-comments';
 import { DefaultLight } from '../ui/themes/default-light.js';
 import { DefaultDark } from '../ui/themes/default.js';
@@ -46,6 +46,7 @@ function getMergeStrategyForPath(path: string[]): MergeStrategy | undefined {
 }
 
 export type { Settings, MemoryImportFormat };
+export type { SessionRetentionSettings } from './settingsSchema.js';
 
 export const SETTINGS_DIRECTORY_NAME = '.gemini';
 

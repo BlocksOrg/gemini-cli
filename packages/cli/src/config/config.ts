@@ -15,7 +15,7 @@ import type {
   TelemetryTarget,
   FileFilteringOptions,
   MCPServerConfig,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import { extensionsCommand } from '../commands/extensions.js';
 import {
   Config,
@@ -30,7 +30,7 @@ import {
   ShellTool,
   EditTool,
   WriteFileTool,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import type { Settings } from './settings.js';
 
 import type { Extension } from './extension.js';
@@ -81,6 +81,9 @@ export interface CliArgs {
   useSmartEdit: boolean | undefined;
   sessionSummary: string | undefined;
   promptWords: string[] | undefined;
+  resume: string | undefined;
+  listSessions: boolean | undefined;
+  deleteSession: string | undefined;
 }
 
 export async function parseArguments(settings: Settings): Promise<CliArgs> {
@@ -234,6 +237,19 @@ export async function parseArguments(settings: Settings): Promise<CliArgs> {
           type: 'string',
           description: 'File to write session summary to.',
         })
+        .option('resume', {
+          alias: 'r',
+          type: 'string',
+          description: 'Resume a previous session. Use "latest" for most recent or index number (e.g. --resume 5)',
+        })
+        .option('list-sessions', {
+          type: 'boolean',
+          description: 'List available sessions for the current project and exit.',
+        })
+        .option('delete-session', {
+          type: 'string',
+          description: 'Delete a session by index number (use --list-sessions to see available sessions).',
+        })
         .deprecateOption(
           'telemetry',
           'Use settings.json instead. This flag will be removed in a future version.',
@@ -297,6 +313,16 @@ export async function parseArguments(settings: Settings): Promise<CliArgs> {
           if (argv.yolo && argv['approvalMode']) {
             throw new Error(
               'Cannot use both --yolo (-y) and --approval-mode together. Use --approval-mode=yolo instead.',
+            );
+          }
+          if (argv.resume && (argv['listSessions'] || argv['deleteSession'])) {
+            throw new Error(
+              'Cannot use --resume with --list-sessions or --delete-session',
+            );
+          }
+          if (argv.resume && !argv.prompt && !promptWords?.length && !process.stdin.isTTY) {
+            throw new Error(
+              'When resuming a session, you must provide a message via --prompt (-p) or stdin',
             );
           }
           return true;

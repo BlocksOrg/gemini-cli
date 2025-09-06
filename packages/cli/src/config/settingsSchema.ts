@@ -10,11 +10,11 @@ import type {
   TelemetrySettings,
   AuthType,
   ChatCompressionSettings,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import {
   DEFAULT_TRUNCATE_TOOL_OUTPUT_LINES,
   DEFAULT_TRUNCATE_TOOL_OUTPUT_THRESHOLD,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import type { CustomTheme } from '../ui/themes/theme.js';
 
 export enum MergeStrategy {
@@ -151,6 +151,48 @@ export const SETTINGS_SCHEMA = {
         default: false,
         description: 'Enable debug logging of keystrokes to the console.',
         showInDialog: true,
+      },
+      sessionRetention: {
+        type: 'object',
+        label: 'Session Retention',
+        category: 'General',
+        requiresRestart: false,
+        default: {
+          enabled: false,
+          maxAge: '30d',
+          maxCount: 100,
+        },
+        description: 'Automatic cleanup of old session files.',
+        showInDialog: false,
+        properties: {
+          enabled: {
+            type: 'boolean',
+            label: 'Enable Session Cleanup',
+            category: 'General',
+            requiresRestart: false,
+            default: false,
+            description: 'Enable automatic cleanup of old session files',
+            showInDialog: true,
+          },
+          maxAge: {
+            type: 'string',
+            label: 'Maximum Age',
+            category: 'General',
+            requiresRestart: false,
+            default: '30d',
+            description: 'Maximum age of sessions to keep (e.g., "30d", "7d", "24h")',
+            showInDialog: true,
+          },
+          maxCount: {
+            type: 'number',
+            label: 'Maximum Count',
+            category: 'General',
+            requiresRestart: false,
+            default: 100,
+            description: 'Maximum number of sessions to keep (most recent)',
+            showInDialog: true,
+          },
+        },
       },
     },
   },
@@ -916,4 +958,10 @@ export interface FooterSettings {
   hideCWD?: boolean;
   hideSandboxStatus?: boolean;
   hideModelInfo?: boolean;
+}
+
+export interface SessionRetentionSettings {
+  enabled?: boolean;
+  maxAge?: string;
+  maxCount?: number;
 }
