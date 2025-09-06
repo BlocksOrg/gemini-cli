@@ -55,6 +55,10 @@ import { SessionStatsProvider } from './ui/contexts/SessionContext.js';
 import { VimModeProvider } from './ui/contexts/VimModeContext.js';
 import { KeypressProvider } from './ui/contexts/KeypressContext.js';
 import { useKittyKeyboardProtocol } from './ui/hooks/useKittyKeyboardProtocol.js';
+import { SessionSelector, formatRelativeTime } from './utils/sessionUtils.js';
+import { cleanupExpiredSessions } from './utils/sessionCleanup.js';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 export function validateDnsResolutionOrder(
   order: string | undefined,
@@ -248,6 +252,15 @@ export async function main() {
     argv,
   );
 
+  // Clean up expired sessions on startup
+  try {
+    await cleanupExpiredSessions(config, settings.merged);
+  } catch (error) {
+    if (config.getDebugMode()) {
+      console.debug('Session cleanup error:', error);
+    }
+  }
+
   const wasRaw = process.stdin.isRaw;
   let kittyProtocolDetectionComplete: Promise<boolean> | undefined;
   if (config.isInteractive() && !wasRaw) {
@@ -298,6 +311,58 @@ export async function main() {
     console.log('Installed extensions:');
     for (const extension of extensions) {
       console.log(`- ${extension.config.name}`);
+    }
+    process.exit(0);
+  }
+
+  // Handle session management commands
+  if (argv.listSessions) {
+    try {
+      const sessionSelector = new SessionSelector(config);
+      const sessions = await sessionSelector.listSessions();
+      
+      if (sessions.length === 0) {
+        console.log('No previous sessions found for this project.');
+      } else {
+        console.log(`Available sessions for this project (${sessions.length}):\n`);
+        
+        for (const session of sessions) {
+          const timeAgo = formatRelativeTime(session.lastUpdated);
+          console.log(`  ${session.index}. ${session.firstUserMessage} (${timeAgo}) [${session.id}]`);
+        }
+      }
+    } catch (error) {
+      console.error('Error listing sessions:', error instanceof Error ? error.message : 'Unknown error');
+      process.exit(1);
+    }
+    process.exit(0);
+  }
+
+  if (argv.deleteSession) {
+    try {
+      const sessionSelector = new SessionSelector(config);
+      const sessions = await sessionSelector.listSessions();
+      
+      if (sessions.length === 0) {
+        console.error('No sessions found for this project.');
+        process.exit(1);
+      }
+      
+      const index = parseInt(argv.deleteSession, 10);
+      if (isNaN(index) || index < 1 || index > sessions.length) {
+        console.error(`Invalid session index "${argv.deleteSession}". Use --list-sessions to see available sessions.`);
+        process.exit(1);
+      }
+      
+      const session = sessions[index - 1];
+      const chatsDir = path.join(config.storage.getProjectTempDir(), 'chats');
+      const sessionPath = path.join(chatsDir, session.fileName);
+      
+      await fs.unlink(sessionPath);
+      console.log(`Deleted session ${index}: ${session.firstUserMessage}`);
+    } catch (error) {
+      console.error('Error deleting session:', error instanceof Error ? error.message : 'Unknown error');
+      process.exit(1);
     }
     process.exit(0);
   }
@@ -482,7 +547,24 @@ export async function main() {
     console.log('Session ID: %s', sessionId);
   }
 
-  await runNonInteractive(nonInteractiveConfig, input, prompt_id);
+  // Handle resume functionality
+  let resumedSessionData: any = undefined;
+  if (argv.resume) {
+    try {
+      const sessionSelector = new SessionSelector(nonInteractiveConfig);
+      const { sessionData, displayInfo } = await sessionSelector.resolveSession(argv.resume);
+      resumedSessionData = { conversation: sessionData, filePath: '' };
+      
+      if (nonInteractiveConfig.getDebugMode()) {
+        console.debug(`Resuming ${displayInfo}`);
+      }
+    } catch (error) {
+      console.error('Error resuming session:', error instanceof Error ? error.message : 'Unknown error');
+      process.exit(1);
+    }
+  }
+
+  await runNonInteractive(nonInteractiveConfig, input, prompt_id, resumedSessionData);
   // Call cleanup before process.exit, which causes cleanup to not run
   await runExitCleanup();
   process.exit(0);

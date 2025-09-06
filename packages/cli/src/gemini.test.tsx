@@ -235,6 +235,9 @@ describe('gemini.tsx main function kitty protocol', () => {
       useSmartEdit: undefined,
       sessionSummary: undefined,
       promptWords: undefined,
+      resume: undefined,
+      listSessions: undefined,
+      deleteSession: undefined,
     });
 
     await main();

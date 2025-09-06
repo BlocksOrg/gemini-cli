@@ -46,6 +46,7 @@ function getMergeStrategyForPath(path: string[]): MergeStrategy | undefined {
 }
 
 export type { Settings, MemoryImportFormat };
+export type { SessionRetentionSettings } from './settingsSchema.js';
 
 export const SETTINGS_DIRECTORY_NAME = '.gemini';
 
