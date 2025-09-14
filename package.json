@@ -1,6 +1,6 @@
 {
   "name": "@blocksuser/gemini-cli",
-  "version": "0.7.0-nightly.20250912.68035591",
+  "version": "0.7.1",
   "engines": {
     "node": ">=20.0.0"
   },
