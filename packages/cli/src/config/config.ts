@@ -16,7 +16,7 @@ import type {
   FileFilteringOptions,
   MCPServerConfig,
   OutputFormat,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import { extensionsCommand } from '../commands/extensions.js';
 import {
   Config,

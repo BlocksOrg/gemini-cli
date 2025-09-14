@@ -1,5 +1,5 @@
 {
-  "name": "@google/gemini-cli-core",
+  "name": "@blocksuser/gemini-cli-core",
   "version": "0.7.0-nightly.20250912.68035591",
   "description": "Gemini CLI Core",
   "repository": {

@@ -9,7 +9,7 @@ import type {
   ToolRegistry,
   ServerGeminiStreamEvent,
   SessionMetrics,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import {
   executeToolCall,
   ToolErrorType,
@@ -18,7 +18,7 @@ import {
   OutputFormat,
   uiTelemetryService,
   FatalInputError,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import type { Part } from '@google/genai';
 import { runNonInteractive } from './nonInteractiveCli.js';
 import { vi } from 'vitest';

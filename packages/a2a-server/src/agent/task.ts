@@ -26,7 +26,7 @@ import type {
   Config,
   UserTierId,
   AnsiOutput,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import type { RequestContext } from '@a2a-js/sdk/server';
 import { type ExecutionEventBus } from '@a2a-js/sdk/server';
 import type {

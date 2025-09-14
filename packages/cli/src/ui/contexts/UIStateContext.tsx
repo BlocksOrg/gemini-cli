@@ -23,7 +23,7 @@ import type {
   UserTierId,
   DetectedIde,
   FallbackIntent,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import type { DOMElement } from 'ink';
 import type { SessionStatsState } from '../contexts/SessionContext.js';
 import type { UpdateObject } from '../utils/updateCheck.js';

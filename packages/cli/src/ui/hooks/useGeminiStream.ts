@@ -34,7 +34,7 @@ import {
   getCodeAssistServer,
   UserTierId,
   promptIdContext,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import { type Part, type PartListUnion, FinishReason } from '@google/genai';
 import type {
   HistoryItem,

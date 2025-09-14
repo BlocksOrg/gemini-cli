@@ -15,7 +15,7 @@ import {
   OutputFormat,
   JsonFormatter,
   uiTelemetryService,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import type { Content, Part } from '@google/genai';
 
 import { ConsolePatcher } from './ui/utils/ConsolePatcher.js';

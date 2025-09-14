@@ -1,5 +1,5 @@
 {
-  "name": "@google/gemini-cli-a2a-server",
+  "name": "@blocksuser/gemini-cli-a2a-server",
   "version": "0.7.0-nightly.20250912.68035591",
   "private": true,
   "description": "Gemini CLI A2A Server",

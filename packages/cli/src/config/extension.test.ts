@@ -30,7 +30,7 @@ import {
   type MCPServerConfig,
   ClearcutLogger,
   type Config,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import { execSync } from 'node:child_process';
 import { SettingScope, loadSettings } from './settings.js';
 import { isWorkspaceTrusted } from './trustedFolders.js';
@@ -70,9 +70,9 @@ vi.mock('./trustedFolders.js', async (importOriginal) => {
   };
 });
 
-vi.mock('@google/gemini-cli-core', async (importOriginal) => {
+vi.mock('@blocksuser/gemini-cli-core', async (importOriginal) => {
   const actual =
-    await importOriginal<typeof import('@google/gemini-cli-core')>();
+    await importOriginal<typeof import('@blocksuser/gemini-cli-core')>();
   const mockLogExtensionInstallEvent = vi.fn();
   return {
     ...actual,
