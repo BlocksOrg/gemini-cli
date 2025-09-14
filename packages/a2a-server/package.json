@@ -1,6 +1,6 @@
 {
   "name": "@blocksuser/gemini-cli-a2a-server",
-  "version": "0.3.3",
+  "version": "0.7.0-nightly.20250912.68035591",
   "private": true,
   "description": "Gemini CLI A2A Server",
   "repository": {

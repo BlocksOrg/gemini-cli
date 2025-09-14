@@ -1,6 +1,6 @@
 {
   "name": "@blocksuser/gemini-cli-test-utils",
-  "version": "0.3.3",
+  "version": "0.7.0-nightly.20250912.68035591",
   "private": true,
   "main": "src/index.ts",
   "license": "Apache-2.0",
