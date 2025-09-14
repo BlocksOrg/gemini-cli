@@ -29,9 +29,9 @@ const { logSlashCommand } = vi.hoisted(() => ({
   logSlashCommand: vi.fn(),
 }));
 
-vi.mock('@google/gemini-cli-core', async (importOriginal) => {
+vi.mock('@blocksuser/gemini-cli-core', async (importOriginal) => {
   const original =
-    await importOriginal<typeof import('@google/gemini-cli-core')>();
+    await importOriginal<typeof import('@blocksuser/gemini-cli-core')>();
 
   return {
     ...original,
@@ -88,6 +88,26 @@ const { mockRunExitCleanup } = vi.hoisted(() => ({
 vi.mock('../../utils/cleanup.js', () => ({
   runExitCleanup: mockRunExitCleanup,
 }));
+
+import { act, renderHook, waitFor } from '@testing-library/react';
+import { vi, describe, it, expect, beforeEach, type Mock } from 'vitest';
+import { useSlashCommandProcessor } from './slashCommandProcessor.js';
+import type {
+  CommandContext,
+  ConfirmShellCommandsActionReturn,
+  SlashCommand,
+} from '../commands/types.js';
+import { CommandKind } from '../commands/types.js';
+import type { LoadedSettings } from '../../config/settings.js';
+import { MessageType } from '../types.js';
+import { BuiltinCommandLoader } from '../../services/BuiltinCommandLoader.js';
+import { FileCommandLoader } from '../../services/FileCommandLoader.js';
+import { McpPromptLoader } from '../../services/McpPromptLoader.js';
+import {
+  SlashCommandStatus,
+  ToolConfirmationOutcome,
+  makeFakeConfig,
+} from '@blocksuser/gemini-cli-core';
 
 function createTestCommand(
   overrides: Partial<SlashCommand>,

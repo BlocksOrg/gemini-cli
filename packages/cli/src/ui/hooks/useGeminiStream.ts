@@ -16,7 +16,7 @@ import type {
   ThoughtSummary,
   ToolCallRequestInfo,
   GeminiErrorEventValue,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import {
   GeminiEventType as ServerGeminiEventType,
   getErrorMessage,

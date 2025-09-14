@@ -31,7 +31,7 @@ vi.mock('../ui/commands/restoreCommand.js', () => ({
 
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import { BuiltinCommandLoader } from './BuiltinCommandLoader.js';
-import type { Config } from '@google/gemini-cli-core';
+import type { Config } from '@blocksuser/gemini-cli-core';
 import { CommandKind } from '../ui/commands/types.js';
 
 import { restoreCommand } from '../ui/commands/restoreCommand.js';

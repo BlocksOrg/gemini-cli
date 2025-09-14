@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Config, ToolCallRequestInfo } from '@google/gemini-cli-core';
+import type { Config, ToolCallRequestInfo, ResumedSessionData } from '@blocksuser/gemini-cli-core';
 import {
   executeToolCall,
   shutdownTelemetry,
@@ -31,6 +31,7 @@ export async function runNonInteractive(
   config: Config,
   input: string,
   prompt_id: string,
+  resumedSessionData?: ResumedSessionData,
 ): Promise<void> {
   return promptIdContext.run(prompt_id, async () => {
     const consolePatcher = new ConsolePatcher({
@@ -47,6 +48,31 @@ export async function runNonInteractive(
           process.exit(0);
         }
       });
+      
+      const geminiClient = config.getGeminiClient();
+      
+      // Initialize chat recording service and handle resumed session
+      if (resumedSessionData) {
+        const chatRecordingService = geminiClient.getChatRecordingService();
+        if (chatRecordingService) {
+          chatRecordingService.initialize(resumedSessionData);
+          
+          // Convert resumed session messages to chat history
+          const geminiChat = await geminiClient.getChat();
+          if (geminiChat && resumedSessionData.conversation.messages.length > 0) {
+            // Load the conversation history into the chat
+            const historyContent: Content[] = resumedSessionData.conversation.messages.map(msg => ({
+              role: msg.type === 'user' ? 'user' : 'model' as const,
+              parts: Array.isArray(msg.content) 
+                ? msg.content.map(part => typeof part === 'string' ? { text: part } : part)
+                : [{ text: typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content) }]
+            }));
+            
+            // Set the chat history
+            geminiChat.setHistory(historyContent);
+          }
+        }
+      }
 
       const geminiClient = config.getGeminiClient();
 

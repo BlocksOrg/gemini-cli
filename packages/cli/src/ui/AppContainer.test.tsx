@@ -15,7 +15,7 @@ import {
 } from 'vitest';
 import { render, cleanup } from 'ink-testing-library';
 import { AppContainer } from './AppContainer.js';
-import { type Config, makeFakeConfig } from '@google/gemini-cli-core';
+import { type Config, makeFakeConfig } from '@blocksuser/gemini-cli-core';
 import type { LoadedSettings } from '../config/settings.js';
 import type { InitializationResult } from '../core/initializer.js';
 import { useQuotaAndFallback } from './hooks/useQuotaAndFallback.js';

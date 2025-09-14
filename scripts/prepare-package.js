@@ -39,7 +39,6 @@ function copyFiles(packageName, filesToCopy) {
 copyFiles('core', {
   'README.md': 'README.md',
   LICENSE: 'LICENSE',
-  '.npmrc': '.npmrc',
 });
 
 // Prepare 'cli' package

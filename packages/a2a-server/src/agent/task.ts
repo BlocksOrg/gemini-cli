@@ -14,7 +14,7 @@ import {
   MCPServerStatus,
   isNodeError,
   parseAndFormatApiError,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import type {
   ToolConfirmationPayload,
   CompletedToolCall,

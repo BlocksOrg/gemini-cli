@@ -1,8 +1,7 @@
 # Gemini CLI
 
 [![Gemini CLI CI](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml)
-[![Gemini CLI E2E](https://github.com/google-gemini/gemini-cli/actions/workflows/e2e.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/e2e.yml)
-[![Version](https://img.shields.io/npm/v/@google/gemini-cli)](https://www.npmjs.com/package/@google/gemini-cli)
+[![Version](https://img.shields.io/npm/v/@blocksuser/gemini-cli)](https://www.npmjs.com/package/@blocksuser/gemini-cli)
 [![License](https://img.shields.io/github/license/google-gemini/gemini-cli)](https://github.com/google-gemini/gemini-cli/blob/main/LICENSE)
 
 ![Gemini CLI Screenshot](./docs/assets/gemini-screenshot.png)
@@ -32,7 +31,7 @@ npx https://github.com/google-gemini/gemini-cli
 #### Install globally with npm
 
 ```bash
-npm install -g @google/gemini-cli
+npm install -g @blocksuser/gemini-cli
 ```
 
 #### Install globally with Homebrew (macOS/Linux)
@@ -55,7 +54,7 @@ See [Releases](./docs/releases.md) for more details.
 New preview releases will be published each week at UTC 2359 on Tuesdays. These releases will not have been fully vetted and may contain regressions or other outstanding issues. Please help us test and install with `preview` tag.
 
 ```bash
-npm install -g @google/gemini-cli@preview
+npm install -g @blocksuser/gemini-cli@preview
 ```
 
 ### Stable
@@ -63,7 +62,7 @@ npm install -g @google/gemini-cli@preview
 - New stable releases will be published each week at UTC 2000 on Tuesdays, this will be the full promotion of last week's `preview` release + any bug fixes and validations. Use `latest` tag.
 
 ```bash
-npm install -g @google/gemini-cli@latest
+npm install -g @blocksuser/gemini-cli@latest
 ```
 
 ### Nightly
@@ -71,7 +70,7 @@ npm install -g @google/gemini-cli@latest
 - New releases will be published each week at UTC 0000 each day, This will be all changes from the main branch as represented at time of release. It should be assumed there are pending validations and issues. Use `nightly` tag.
 
 ```bash
-npm install -g @google/gemini-cli@nightly
+npm install -g @blocksuser/gemini-cli@nightly
 ```
 
 ## 📋 Key Features
@@ -299,7 +298,7 @@ Check our [Official Roadmap](https://github.com/orgs/google-gemini/projects/11/)
 ## 📖 Resources
 
 - **[Official Roadmap](./ROADMAP.md)** - See what's coming next
-- **[NPM Package](https://www.npmjs.com/package/@google/gemini-cli)** - Package registry
+- **[NPM Package](https://www.npmjs.com/package/@blocksuser/gemini-cli)** - Package registry
 - **[GitHub Issues](https://github.com/google-gemini/gemini-cli/issues)** - Report bugs or request features
 - **[Security Advisories](https://github.com/google-gemini/gemini-cli/security/advisories)** - Security updates
 

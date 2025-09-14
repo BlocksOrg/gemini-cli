@@ -7,11 +7,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { ShellTool, EditTool, WriteFileTool } from '@google/gemini-cli-core';
+import { ShellTool, EditTool, WriteFileTool } from '@blocksuser/gemini-cli-core';
 import { loadCliConfig, parseArguments, type CliArgs } from './config.js';
 import type { Settings } from './settings.js';
 import type { Extension } from './extension.js';
-import * as ServerConfig from '@google/gemini-cli-core';
+import * as ServerConfig from '@blocksuser/gemini-cli-core';
 import { isWorkspaceTrusted } from './trustedFolders.js';
 
 vi.mock('./trustedFolders.js', () => ({
@@ -68,9 +68,9 @@ vi.mock('read-package-up', () => ({
   ),
 }));
 
-vi.mock('@google/gemini-cli-core', async () => {
+vi.mock('@blocksuser/gemini-cli-core', async () => {
   const actualServer = await vi.importActual<typeof ServerConfig>(
-    '@google/gemini-cli-core',
+    '@blocksuser/gemini-cli-core',
   );
   return {
     ...actualServer,

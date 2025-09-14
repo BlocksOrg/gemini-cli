@@ -253,6 +253,14 @@ describe('isWorkspaceTrusted', () => {
   });
 });
 
+vi.mock('@blocksuser/gemini-cli-core', async (importOriginal) => {
+  const actual = await importOriginal<Record<string, unknown>>();
+  return {
+    ...actual,
+    getIdeTrust: vi.fn(),
+  };
+});
+
 describe('isWorkspaceTrusted with IDE override', () => {
   afterEach(() => {
     ideContextStore.clear();

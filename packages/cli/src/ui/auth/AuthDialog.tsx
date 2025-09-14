@@ -15,7 +15,7 @@ import {
   AuthType,
   clearCachedCredentialFile,
   type Config,
-} from '@google/gemini-cli-core';
+} from '@blocksuser/gemini-cli-core';
 import { useKeypress } from '../hooks/useKeypress.js';
 import { AuthState } from '../types.js';
 import { runExitCleanup } from '../../utils/cleanup.js';

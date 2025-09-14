@@ -169,7 +169,7 @@ jobs:
           registry-url: 'https://wombat-dressing-room.appspot.com'
           scope: '@google'
 
-      - name: 'Publish @google/gemini-cli-core'
+      - name: 'Publish @blocksuser/gemini-cli-core'
         env:
           IS_DRY_RUN: '${{ steps.vars.outputs.is_dry_run }}'
           NODE_AUTH_TOKEN: '${{ secrets.WOMBAT_TOKEN_CORE }}'
@@ -177,7 +177,7 @@ jobs:
         run: |-
           npm publish \
             --dry-run="${IS_DRY_RUN}" \
-            --workspace="@google/gemini-cli-core" \
+            --workspace="@blocksuser/gemini-cli-core" \
             --tag="${NPM_TAG}"
 
       - name: 'Install latest core package'
@@ -186,11 +186,11 @@ jobs:
         env:
           RELEASE_VERSION: '${{ steps.version.outputs.RELEASE_VERSION }}'
         run: |-
-          npm install "@google/gemini-cli-core@${RELEASE_VERSION}" \
-          --workspace="@google/gemini-cli" \
+          npm install "@blocksuser/gemini-cli-core@${RELEASE_VERSION}" \
+          --workspace="@blocksuser/gemini-cli" \
           --save-exact
 
-      - name: 'Publish @google/gemini-cli'
+      - name: 'Publish @blocksuser/gemini-cli'
         env:
           IS_DRY_RUN: '${{ steps.vars.outputs.is_dry_run }}'
           NODE_AUTH_TOKEN: '${{ secrets.WOMBAT_TOKEN_CLI }}'
@@ -198,7 +198,7 @@ jobs:
         run: |-
           npm publish \
             --dry-run="${IS_DRY_RUN}" \
-            --workspace="@google/gemini-cli" \
+            --workspace="@blocksuser/gemini-cli" \
             --tag="${NPM_TAG}"
 
       - name: 'Create GitHub Release and Tag'

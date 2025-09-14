@@ -21,7 +21,7 @@ import {
 } from './gemini.js';
 import { type LoadedSettings } from './config/settings.js';
 import { appEvents, AppEvent } from './utils/events.js';
-import type { Config } from '@google/gemini-cli-core';
+import type { Config } from '@blocksuser/gemini-cli-core';
 
 // Custom error to identify mock process.exit calls
 class MockProcessExitError extends Error {
@@ -236,6 +236,9 @@ describe('gemini.tsx main function kitty protocol', () => {
       sessionSummary: undefined,
       promptWords: undefined,
       outputFormat: undefined,
+      resume: undefined,
+      listSessions: undefined,
+      deleteSession: undefined,
     });
 
     await main();

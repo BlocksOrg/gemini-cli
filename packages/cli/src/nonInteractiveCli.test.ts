@@ -25,9 +25,9 @@ import { vi } from 'vitest';
 
 // Mock core modules
 vi.mock('./ui/hooks/atCommandProcessor.js');
-vi.mock('@google/gemini-cli-core', async (importOriginal) => {
+vi.mock('@blocksuser/gemini-cli-core', async (importOriginal) => {
   const original =
-    await importOriginal<typeof import('@google/gemini-cli-core')>();
+    await importOriginal<typeof import('@blocksuser/gemini-cli-core')>();
 
   class MockChatRecordingService {
     initialize = vi.fn();
