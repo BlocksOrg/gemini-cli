@@ -74,8 +74,6 @@ export async function runNonInteractive(
         }
       }
 
-      const geminiClient = config.getGeminiClient();
-
       const abortController = new AbortController();
 
       const { processedQuery, shouldProceed } = await handleAtCommand({
