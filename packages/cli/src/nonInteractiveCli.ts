@@ -14,7 +14,9 @@ import {
   promptIdContext,
   OutputFormat,
   JsonFormatter,
+  StreamJsonFormatter,
   uiTelemetryService,
+  streamingTelemetryService,
 } from '@blocksuser/gemini-cli-core';
 import type { Content, Part } from '@google/genai';
 
@@ -41,6 +43,18 @@ export async function runNonInteractive(
 
     try {
       consolePatcher.patch();
+      
+      // Set up streaming telemetry for stream-json format
+      const isStreamJsonFormat = config.getOutputFormat() === OutputFormat.STREAM_JSON;
+      let streamJsonFormatter: StreamJsonFormatter | undefined;
+      
+      if (isStreamJsonFormat) {
+        streamJsonFormatter = new StreamJsonFormatter();
+        streamingTelemetryService.enable();
+        streamingTelemetryService.addTelemetryListener((event) => {
+          process.stdout.write(streamJsonFormatter!.formatTelemetryBlock(event) + '\n');
+        });
+      }
       // Handle EPIPE errors when the output is piped to a command that closes early.
       process.stdout.on('error', (err: NodeJS.ErrnoException) => {
         if (err.code === 'EPIPE') {
@@ -123,6 +137,11 @@ export async function runNonInteractive(
           if (event.type === GeminiEventType.Content) {
             if (config.getOutputFormat() === OutputFormat.JSON) {
               responseText += event.value;
+            } else if (config.getOutputFormat() === OutputFormat.STREAM_JSON) {
+              responseText += event.value;
+              if (streamJsonFormatter) {
+                process.stdout.write(streamJsonFormatter.formatContentBlock(event.value) + '\n');
+              }
             } else {
               process.stdout.write(event.value);
             }
@@ -162,6 +181,11 @@ export async function runNonInteractive(
             const formatter = new JsonFormatter();
             const stats = uiTelemetryService.getMetrics();
             process.stdout.write(formatter.format(responseText, stats));
+          } else if (config.getOutputFormat() === OutputFormat.STREAM_JSON) {
+            if (streamJsonFormatter) {
+              const stats = uiTelemetryService.getMetrics();
+              process.stdout.write(streamJsonFormatter.formatFinalBlock(responseText, stats) + '\n');
+            }
           } else {
             process.stdout.write('\n'); // Ensure a final newline
           }
@@ -172,6 +196,9 @@ export async function runNonInteractive(
       handleError(error, config);
     } finally {
       consolePatcher.cleanup();
+      if (config.getOutputFormat() === OutputFormat.STREAM_JSON) {
+        streamingTelemetryService.disable();
+      }
       if (isTelemetrySdkInitialized()) {
         await shutdownTelemetry(config);
       }

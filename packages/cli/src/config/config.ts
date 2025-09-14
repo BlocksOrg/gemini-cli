@@ -242,7 +242,7 @@ export async function parseArguments(settings: Settings): Promise<CliArgs> {
         .option('output-format', {
           type: 'string',
           description: 'The format of the CLI output.',
-          choices: ['text', 'json'],
+          choices: ['text', 'json', 'stream-json'],
         })
         .option('resume', {
           alias: 'r',

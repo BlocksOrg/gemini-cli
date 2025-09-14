@@ -8,6 +8,7 @@
 export * from './config/config.js';
 export * from './output/types.js';
 export * from './output/json-formatter.js';
+export * from './output/stream-json-formatter.js';
 
 // Export Core Logic
 export * from './core/client.js';

@@ -66,6 +66,7 @@ import {
 import { isTelemetrySdkInitialized } from './sdk.js';
 import type { UiEvent } from './uiTelemetry.js';
 import { uiTelemetryService } from './uiTelemetry.js';
+import { streamingTelemetryService } from './streamingTelemetry.js';
 import { ClearcutLogger } from './clearcut-logger/clearcut-logger.js';
 import { safeJsonStringify } from '../utils/safeJsonStringify.js';
 import { UserAccountManager } from '../utils/userAccountManager.js';
@@ -119,6 +120,7 @@ export function logCliConfiguration(
 }
 
 export function logUserPrompt(config: Config, event: UserPromptEvent): void {
+  streamingTelemetryService.emitEvent(event);
   ClearcutLogger.getInstance(config)?.logNewPromptEvent(event);
   if (!isTelemetrySdkInitialized()) return;
 
@@ -147,6 +149,7 @@ export function logUserPrompt(config: Config, event: UserPromptEvent): void {
 }
 
 export function logToolCall(config: Config, event: ToolCallEvent): void {
+  streamingTelemetryService.emitEvent(event);
   const uiEvent = {
     ...event,
     'event.name': EVENT_TOOL_CALL,
@@ -359,6 +362,7 @@ export function logApiError(config: Config, event: ApiErrorEvent): void {
 }
 
 export function logApiResponse(config: Config, event: ApiResponseEvent): void {
+  streamingTelemetryService.emitEvent(event);
   const uiEvent = {
     ...event,
     'event.name': EVENT_API_RESPONSE,
